@@ -1,0 +1,348 @@
+Question:Rectangular Area
+You are given a rectangle in a plane whose sides are parallel to the axes. The coordinates of one of its diagonals are provided to you. You have to print the total area of the rectangle.
+The coordinates of the rectangle are provided as four integral values: x1, y1, x2, y2. It is given that x1 < x2 and y1 < y2.
+
+
+Input format:
+The first line of input contains an integer x1 
+The second line of input contains an integer y1  
+The third line of input contains an integer x2 
+The fourth line of input contains an integer y2 
+Constraints:
+1 <= x1 <= 10
+1 <= y1 <= 10
+1 <= x2 <= 10
+1 <= y2 <= 10 
+Time Limit: 1 second
+Output format:
+The first and only line of output contains the result.  
+Sample Input:
+1
+1
+3
+3
+Sample Output:
+4
+Explanation:
+The given coordinates of the diagonal are (x1,y1) = (1,1) and (x2,y2) = (3, 3). 
+The area of the rectangle can then easily be calculated as: 
+(3 – 1) * ( 3 – 1) = 2 * 2 = 4 
+
+***************************************************************************************************************************************************************
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int x1 = sc.nextInt();
+        int y1 = sc.nextInt();
+        int x2 = sc.nextInt();
+        int y2 = sc.nextInt();
+        
+        int area = (x2 - x1) * (y2 - y1);
+        
+        System.out.println(area);
+    }
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+
+Reverse Array Between 2 Index
+Given an array ‘ARR’ of size ‘N’. You are also given two indices ‘L’ and ‘R’.
+Your task is to reverse the ‘ARR’ from index ‘L’ to ‘R’ inclusive.
+Example:
+Input:
+‘N’ = 3 ‘L’ = 0 ‘R’ = 1 ‘ARR’ = [1, 2, 3]
+
+
+Output: 
+2 1 3
+
+Explanation:
+
+When we reverse the elements between indices 0 and 1 we get the array as 2 1 3.
+Input Format:
+The first line of input contains an integer ‘T’ denoting the number of test cases.
+Then the test case follows.
+
+The first line of each test case contains an integer ‘N’ denoting the number of elements in the array ‘ARR’. 
+
+The second line of each test case contains 2 space-separated integers denoting ‘L’ and ‘R’ respectively.
+The second line of each test case contains ‘N' space-separated integers denoting the elements of the array ‘ARR’.
+Output format:
+For each test case print the array after applying the given operation.
+Constraints :
+1  <= T <= 10
+1  <= N <= 100000
+0 <= L, R < N
+1 <= ARR[i] <= 1e9
+Time Limit: 1 sec
+Sample Input 1:
+2
+3
+0 1
+1 2 3
+2
+0 1 
+1 2
+Sample Output 1:
+2 1 3
+2 1
+Explanation Of Sample Input 1 :
+Test 1:
+When we reverse the elements between indices 0 and 1 we get the array as 2 1 3.
+
+Test 2:
+When we reverse the elements between indices 0 and 1 we get the array as 2 1.
+Sample Input 2 :
+2
+5
+0 3
+21 6 46 36 10 
+10
+9 9
+21 2 17 39 48 41 44 23 22 7 
+Sample Output 2 :
+36 46 6 21 10 
+21 2 17 39 48 41 44 23 22 7
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Solution {
+    public static int[] reverseBetween(int n, int l, int r, int[] arr) {
+        // Reverse the array from index l to r
+        int len = (r - l + 1) / 2;
+        for (int i = 0; i < len; i++) {
+            int temp = arr[l + i];
+            arr[l + i] = arr[r - i];
+            arr[r - i] = temp;
+        }
+        return arr;
+    }
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Remark Student
+Teacher is remarking students on the basis of their score. Criteria for remarking students are as follows:
+
+
+If the score is greater than 75 to 100 then it will be remarked ‘Distinction’.
+If the score is greater than 50 to 75 then it will remarked ‘Average’
+If the score is between 35 - 50 then it will be remarked ‘Below Average’.
+Input Format:
+
+
+First line contains an integer n denoting the number of students.
+
+Next n lines contain the score of the student.
+
+
+Output Format:
+
+
+Next n lines contain the remark of students.
+
+
+Constraints:
+
+
+1<n<=1000
+
+35<=score[i]<=100
+Sample Input1:
+
+
+2
+
+36
+
+78
+
+
+Sample Output 1:
+
+
+Below Average
+
+Distinction
+
+
+Explanation for Sample case 1:
+
+
+No explanation is required.
+
+
+Sample Input2:
+
+
+4
+
+76
+
+63
+
+35
+
+56
+
+Sample Output 2:
+
+Distinction
+
+Average
+
+Below Average
+
+Average
+
+
+Explanation for Sample case 2:
+
+
+No Explanation is required.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+public class Solution {
+    public static String remarkStudent(int score) {
+        if (score >= 75 && score <= 100) {
+            return "Distinction";
+        } else if (score >= 50 && score < 75) {
+            return "Average";
+        } else if (score >= 35 && score < 50) {
+            return "Below Average";
+        } else {
+            return "Fail";
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+Nodes without sibling
+For a given Binary Tree of type integer, print all the nodes without any siblings.
+Input Format:
+The first and the only line of input will contain the node data, all separated by a single space. Since -1 is used as an indication whether the left or right node data exist for root, it will not be a part of the node data.
+Output Format:
+The only line of output prints the node data in a top to down fashion with reference to the root. 
+Node data in the left subtree will be printed first and then the right subtree.
+A single space will separate them all.
+ Constraints:
+1 <= N <= 10^5
+Where N is the total number of nodes in the binary tree.
+
+Time Limit: 1 second
+Sample Input 1:
+5 6 10 2 3 -1 -1 -1 -1 -1 9 -1 -1
+Sample Output 1:
+9    
+Sample Input 2:
+2 4 5 6 -1 -1 7 20 30 80 90 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 2:
+6 7  
+Explanation of Sample Input 2:
+The input tree when represented in a two-dimensional plane, it would look like this:     
+alt txt
+
+In respect to the root, node data in the left subtree that satisfy the condition of not having a sibling would be 6, taken in a top-down sequence. Similarly, for the right subtree, 7 is the node data without any sibling.
+
+Since we print the siblings in the left-subtree first and then the siblings from the right subtree, taken in a top-down fashion, we print 6 7.
+
+
+public class Solution {
+
+    public static void printNodesWithoutSibling(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return;
+        }
+
+        if (root.left != null && root.right != null) {
+            // This node has both left and right children, so recurse on both
+            printNodesWithoutSibling(root.left);
+            printNodesWithoutSibling(root.right);
+        } else if (root.left != null) {
+            // This node has a left child only, so recurse on the left child
+            System.out.print(root.left.data + " ");
+            printNodesWithoutSibling(root.left);
+        } else if (root.right != null) {
+            // This node has a right child only, so recurse on the right child
+            System.out.print(root.right.data + " ");
+            printNodesWithoutSibling(root.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(2);
+        root.left = new BinaryTreeNode<>(4);
+        root.right = new BinaryTreeNode<>(5);
+        root.left.left = new BinaryTreeNode<>(6);
+        root.right.left = new BinaryTreeNode<>(7);
+        root.right.left.right = new BinaryTreeNode<>(20);
+        root.right.right = new BinaryTreeNode<>(30);
+        root.right.right.right = new BinaryTreeNode<>(90);
+        root.right.right.left = new BinaryTreeNode<>(80);
+
+        printNodesWithoutSibling(root); // Output: 6 7
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Check if a Binary Tree is BST
+Given a binary tree with N number of nodes, check if that input tree is BST (Binary Search Tree). If yes, return true, return false otherwise.
+Note: Duplicate elements should be kept in the right subtree.
+Input format :
+The first line of input contains data of the nodes of the tree in level order form. The data of the nodes of the tree is separated by space. If any node does not have a left or right child, take -1 in its place. Since -1 is used as an indication whether the left or right nodes exist, therefore, it will not be a part of the data of any node.
+Output format :
+The first and only line of output contains either true or false.
+Constraints :
+Time Limit: 1 second
+Sample Input 1 :
+3 1 5 -1 2 -1 -1 -1 -1
+Sample Output 1 :
+true
+Sample Input 2 :
+5 2 10 0 1 -1 15 -1 -1 -1 -1 -1 -1
+Sample Output 2 :
+false
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Solution {
+    public static boolean isBST(BinaryTreeNode<Integer> root) {
+        // Call the helper function with minimum and maximum limits
+        return isBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private static boolean isBSTHelper(BinaryTreeNode<Integer> root, int min, int max) {
+        // If the root is null, then it is a valid BST
+        if (root == null) {
+            return true;
+        }
+
+        // If the root's data is outside the given range, then it is not a valid BST
+        if (root.data < min || root.data > max) {
+            return false;
+        }
+
+        // Recursively check the left and right subtrees with updated range limits
+        boolean isLeftSubtreeBST = isBSTHelper(root.left, min, root.data - 1);
+        boolean isRightSubtreeBST = isBSTHelper(root.right, root.data, max);
+
+        // Return true only if both the subtrees are BSTs
+        return isLeftSubtreeBST && isRightSubtreeBST;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
