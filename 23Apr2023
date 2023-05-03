@@ -346,3 +346,490 @@ public class Solution {
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+String Replace character
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Solution {
+    public static String replaceCharacter(String input, char c1, char c2) {
+        // Base case
+        if (input.length() == 0) {
+            return input;
+        }
+
+        // Recursive call
+        char firstChar = input.charAt(0);
+        String remainingString = input.substring(1);
+        String smallOutput = replaceCharacter(remainingString, c1, c2);
+
+        // Calculation and return
+        if (firstChar == c1) {
+            return c2 + smallOutput;
+        } else {
+            return firstChar + smallOutput;
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Print Node sum S
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.Stack;
+
+public class Solution {
+
+    public static void printNodesSumToS(BinaryTreeNode<Integer> root, int S) {
+        Stack<BinaryTreeNode<Integer>> stack1 = new Stack<>();
+        Stack<BinaryTreeNode<Integer>> stack2 = new Stack<>();
+        BinaryTreeNode<Integer> curr1 = root;
+        BinaryTreeNode<Integer> curr2 = root;
+
+        // Push nodes from leftmost to smallest in stack1
+        while (curr1 != null) {
+            stack1.push(curr1);
+            curr1 = curr1.left;
+        }
+
+        // Push nodes from rightmost to largest in stack2
+        while (curr2 != null) {
+            stack2.push(curr2);
+            curr2 = curr2.right;
+        }
+
+        // Traverse through the two stacks
+        while (!stack1.isEmpty() && !stack2.isEmpty() && stack1.peek().data < stack2.peek().data) {
+            BinaryTreeNode<Integer> node1 = stack1.peek();
+            BinaryTreeNode<Integer> node2 = stack2.peek();
+
+            int sum = node1.data + node2.data;
+
+            // If sum is less than S, then move to next larger node in stack1
+            if (sum < S) {
+                curr1 = stack1.pop().right;
+                while (curr1 != null) {
+                    stack1.push(curr1);
+                    curr1 = curr1.left;
+                }
+            }
+            // If sum is greater than S, then move to next smaller node in stack2
+            else if (sum > S) {
+                curr2 = stack2.pop().left;
+                while (curr2 != null) {
+                    stack2.push(curr2);
+                    curr2 = curr2.right;
+                }
+            }
+            // If sum is equal to S, then print the pair of nodes
+            else {
+                System.out.println(node1.data + " " + node2.data);
+                curr1 = stack1.pop().right;
+                curr2 = stack2.pop().left;
+                while (curr1 != null) {
+                    stack1.push(curr1);
+                    curr1 = curr1.left;
+                }
+                while (curr2 != null) {
+                    stack2.push(curr2);
+                    curr2 = curr2.right;
+                }
+            }
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Smallest Different Pair
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import java.util.Arrays;
+
+public class Solution {
+    public static int smallestDifferencePair(int[] arr1, int n, int[] arr2, int m) {
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        int i = 0, j = 0, minDiff = Integer.MAX_VALUE;
+        while (i < n && j < m) {
+            int diff = Math.abs(arr1[i] - arr2[j]);
+            minDiff = Math.min(minDiff, diff);
+            if (arr1[i] < arr2[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        return minDiff;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Duplicate Number In array
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Solution{  
+    
+    public static int duplicateNumber(int arr[]) {
+        int n = arr.length;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+        }
+        int actualSum = ((n - 1) * (n - 2)) / 2;
+        int duplicateNumber = sum - actualSum;
+        return duplicateNumber;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Insertion and Duplicate Binary Tree
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class BinaryTreeNode<T> {
+    T data;
+    BinaryTreeNode<T> left;
+    BinaryTreeNode<T> right;
+
+    public BinaryTreeNode(T data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+public class Solution {
+    public static void printLevelWise(BinaryTreeNode<Integer> root) {
+        if (root == null) return;
+
+        
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            BinaryTreeNode<Integer> node = queue.poll();
+            String nodeInfo = node.data + ":";
+            if (node.left != null) {
+                queue.add(node.left);
+                nodeInfo += "L:" + node.left.data;
+            } else {
+                nodeInfo += "L:-1";
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+                nodeInfo += ",R:" + node.right.data;
+            } else {
+                nodeInfo += ",R:-1";
+            }
+            System.out.println(nodeInfo);
+        }
+    }
+
+    public static void main(String[] args) {
+        // sample input: 8 3 10 1 6 -1 14 -1 -1 4 7 13 -1 -1 -1 -1 -1 -1 -1
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(8);
+        root.left = new BinaryTreeNode<>(3);
+        root.right = new BinaryTreeNode<>(10);
+        root.left.left = new BinaryTreeNode<>(1);
+        root.left.right = new BinaryTreeNode<>(6);
+        root.right.right = new BinaryTreeNode<>(14);
+        root.left.right.left = new BinaryTreeNode<>(4);
+        root.left.right.right = new BinaryTreeNode<>(7);
+        root.right.right.left = new BinaryTreeNode<>(13);
+
+        printLevelWise(root);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Insert Duplicate Node in Binary Tree
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+public static void insertDuplicateNode(BinaryTreeNode<Integer> root) {
+    if (root == null) {
+        return;
+    }
+    insertDuplicateNode(root.left);
+    insertDuplicateNode(root.right);
+    BinaryTreeNode<Integer> newNode = new BinaryTreeNode<Integer>(root.data);
+    newNode.left = root.left;
+    root.left = newNode;
+}
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Nodes Without Siblings
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Solution {
+    public static void printNodesWithoutSibling(BinaryTreeNode<Integer> root) {
+        // If root is null, return
+        if (root == null) {
+            return;
+        }
+        
+        // If the root has only one child, print the data of that child
+        if (root.left == null && root.right != null) {
+            System.out.print(root.right.data + " ");
+        }
+        if (root.left != null && root.right == null) {
+            System.out.print(root.left.data + " ");
+        }
+        
+        // Recursively call the function for the left and right subtree
+        printNodesWithoutSibling(root.left);
+        printNodesWithoutSibling(root.right);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Quick Sort
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class Solution {
+    public static void quickSort(int[] input) {
+        int si = 0;
+        int ei = input.length - 1;
+        quickSort(input, si, ei);
+    }
+
+    private static void quickSort(int[] input, int si, int ei) {
+        if (si >= ei) {
+            return;
+        }
+
+        int pivotIndex = partition(input, si, ei);
+        quickSort(input, si, pivotIndex - 1);
+        quickSort(input, pivotIndex + 1, ei);
+    }
+
+    private static int partition(int[] input, int si, int ei) {
+        int pivot = input[si];
+        int smallerCount = 0;
+
+        for (int i = si + 1; i <= ei; i++) {
+            if (input[i] <= pivot) {
+                smallerCount++;
+            }
+        }
+
+        int pivotIndex = si + smallerCount;
+        int temp = input[si];
+        input[si] = input[pivotIndex];
+        input[pivotIndex] = temp;
+
+        int i = si;
+        int j = ei;
+
+        while (i <= pivotIndex && j >= pivotIndex) {
+            if (input[i] <= pivot) {
+                i++;
+            } else if (input[j] > pivot) {
+                j--;
+            } else {
+                int temp2 = input[i];
+                input[i] = input[j];
+                input[j] = temp2;
+                i++;
+                j--;
+            }
+        }
+
+        return pivotIndex;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Reverse String 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public void reverseString(char[] s) {
+        int i=0;
+        int j=s.length-1;
+        while(i<j)
+        {
+            char temp=s[i];
+            s[i]=s[j];
+            s[j]=temp;
+            i++;
+            j--;
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Maximum Subarray
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+class Solution 
+{
+    public int maxSubArray(int[] nums)
+ {
+        int maxSoFar=nums[0];
+        int maxEndingHere=nums[0];
+        for(int i=1 ; i<nums.length;i++)
+        {
+            maxEndingHere=Math.max(maxEndingHere+nums[i],nums[i]);
+            maxSoFar=Math.max(maxSoFar, maxEndingHere);
+        }
+        return maxSoFar;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Contains Duplicate
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import java.util.*;
+class Solution 
+{
+    public boolean containsDuplicate(int[] nums)
+    {
+        Set<Integer> set = new HashSet<Integer>();
+        for(int num : nums)
+        {
+            if(set.contains(num))
+            {
+                return true;
+            }
+            set.add(num);
+        }
+        return false;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Search in Rotated Sorted Array
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+class Solution {
+    public int search(int[] nums, int target) 
+    {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) 
+            {
+                return mid;
+            }
+            if (nums[left] <= nums[mid])
+             { // left half is sorted
+                if (nums[left] <= target && target < nums[mid]) 
+                {
+                    right = mid - 1;
+                } else
+                 {
+                    left = mid + 1;
+                }
+            } else
+             { // right half is sorted
+                if (nums[mid] <= target && target <= nums[right]) 
+                {
+                    left = mid + 1;
+                } else 
+                {
+                    right = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Next Permutation
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+         if (i >= 0) {
+            int j = nums.length - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums, i, j);
+        }
+        reverse(nums, i + 1);
+    }
+    
+    
+    private void swap(int[] nums, int i, int j)
+     {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    private void reverse(int[] nums, int start)
+     {
+        int i = start, j = nums.length - 1;
+        while (i < j) {
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Best time to Buy and Sell Stock
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            } else if (prices[i] - minPrice > maxProfit) {
+                maxProfit = prices[i] - minPrice;
+            }
+        }
+        
+        return maxProfit;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
