@@ -833,3 +833,263 @@ class Solution {
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Insert LinkList
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+
+public class Solution {
+
+	public static LinkedListNode<Integer> insert(LinkedListNode<Integer> head, int pos, int data){
+		//Your code goes here
+		if (pos == 0){
+			LinkedListNode t = new LinkedListNode(data);
+			LinkedListNode tem = head;
+			head = t;
+			head.next = tem;
+			return head;
+		}
+		int x = 0;
+		LinkedListNode temp = head;
+		while(temp!= null){
+			if (x+1 == pos){
+				LinkedListNode t = new LinkedListNode(data);
+				LinkedListNode tem = temp.next;
+				temp.next = t;
+				temp.next.next = tem;
+				x++;
+			}
+			x++;
+			temp = temp.next;
+		}
+		return head;
+	}
+	}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Complex Number
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+public class ComplexNumbers {
+	// Data members
+	private int real;
+	private int imaginary;
+
+	// Constructor
+	public ComplexNumbers(int real, int imaginary) {
+		this.real = real;
+		this.imaginary = imaginary;
+	}
+
+	// Print method
+	public void print() {
+		System.out.println(real + " + i" + imaginary);
+	}
+
+	// Add method
+	public void plus(ComplexNumbers c) {
+		real = real + c.real;
+		imaginary = imaginary + c.imaginary;
+	}
+
+	// Multiply method
+	public void multiply(ComplexNumbers c) {
+		int tempReal = real;
+		real = real * c.real - imaginary * c.imaginary;
+		imaginary = tempReal * c.imaginary + imaginary * c.real;
+	}
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Total Salary
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int basic = sc.nextInt();
+        char grade = sc.next().charAt(0);
+
+        double hra = 0.2 * basic;
+        double da = 0.5 * basic;
+        double pf = 0.11 * basic;
+        double allow = 0;
+
+        if (grade == 'A') {
+            allow = 1700;
+        } else if (grade == 'B') {
+            allow = 1500;
+        } else {
+            allow = 1300;
+        }
+
+        double totalSalary = basic + hra + da + allow - pf;
+
+        System.out.println((int)Math.round(totalSalary));
+
+        sc.close();
+    }
+}
+
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Second largest Element in array
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+import java.util.Arrays;
+
+public class Solution {
+
+    public static int secondLargestElement(int[] arr) {
+        int arr_size = arr.length;
+        if(arr_size < 2) {
+            return -2147483648;
+        }
+        Arrays.sort(arr);
+        int i = arr_size - 2;
+        while(i >= 0 && arr[i] == arr[arr_size-1]) {
+            i--;
+        }
+        if(i < 0) {
+            return -2147483648;
+        }
+        return arr[i];
+    }
+
+}
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Print Nodes sum of s
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+
+import java.util.HashSet;
+
+public class Solution {
+
+	public static void printNodesSumToS(BinaryTreeNode<Integer> root, int s) {
+		// Create a hash set to keep track of visited nodes
+		HashSet<Integer> set = new HashSet<>();
+		
+		// Call the helper function to traverse the tree and find pairs
+		helper(root, s, set);
+	}
+
+	private static void helper(BinaryTreeNode<Integer> root, int s, HashSet<Integer> set) {
+		// Base case: if root is null, return
+		if (root == null) {
+			return;
+		}
+		
+		// Traverse the left subtree
+		helper(root.left, s, set);
+		
+		// Calculate the complement of the current node's value with respect to s
+		int complement = s - root.data;
+		
+		// If the complement is in the hash set, then we have found a pair
+		if (set.contains(complement)) {
+			// Print the smaller element first
+			System.out.println(Math.min(root.data, complement) + " " + Math.max(root.data, complement));
+		} else {
+			// Otherwise, add the current node's value to the hash set
+			set.add(root.data);
+		}
+		
+		// Traverse the right subtree
+		helper(root.right, s, set);
+	}
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Binary Tree Height
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+public class Solution {
+    public static int height(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Alphabet Pattern
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+public class Solution {
+    public static void alphabetPattern(int n) {
+        int i, j;
+        for (i = n; i >= 1; i--) {
+            for (j = n; j >= i; j--) {
+                System.out.print((char) (j + 64));
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 5;
+        alphabetPattern(n);
+    }
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Rat in Maze all path
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+public class Solution {
+    public static void printAllPaths(int[][] maze, int i, int j, int[][] path) {
+        int n = maze.length;
+
+        // Base cases
+        if (i < 0 || i >= n || j < 0 || j >= n || maze[i][j] == 0 || path[i][j] == 1) {
+            return;
+        }
+
+        // Mark the current cell as visited
+        path[i][j] = 1;
+
+        // If the destination is reached, print the path
+        if (i == n - 1 && j == n - 1) {
+            for (int r = 0; r < n; r++) {
+                for (int c = 0; c < n; c++) {
+                    System.out.print(path[r][c] + " ");
+                }
+            }
+            System.out.println();
+            path[i][j] = 0;
+            return;
+        }
+
+        // Recursive calls
+        printAllPaths(maze, i - 1, j, path); // Top
+        printAllPaths(maze, i + 1, j, path); // Down
+        printAllPaths(maze, i, j - 1, path); // Left
+        printAllPaths(maze, i, j + 1, path); // Right
+
+        // Mark the current cell as unvisited
+        path[i][j] = 0;
+    }
+
+    public static void ratInAMaze(int[][] maze, int n) {
+        int[][] path = new int[n][n];
+        printAllPaths(maze, 0, 0, path);
+    }
+}
+
