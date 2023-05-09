@@ -1093,3 +1093,113 @@ public class Solution {
     }
 }
 
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Print Keypad combinations code
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+//Print Keypad Combinations Code
+
+public class Solution {
+
+    // Mapping of digits to their respective characters on the keypad
+    private static final String[] KEYS = new String[] {
+        "",     // 0
+        "",     // 1
+        "abc",  // 2
+        "def",  // 3
+        "ghi",  // 4
+        "jkl",  // 5
+        "mno",  // 6
+        "pqrs", // 7
+        "tuv",  // 8
+        "wxyz"  // 9
+    };
+
+    public static void printKeypad(int input){
+        printKeypadHelper(input, "");
+    }
+
+    private static void printKeypadHelper(int input, String output) {
+        // Base case: If input is empty, print output
+        if (input == 0) {
+            System.out.println(output);
+            return;
+        }
+
+        // Get the current digit and the corresponding keypad characters
+        int currentDigit = input % 10;
+        String currentChars = KEYS[currentDigit];
+
+        // For each character in the currentChars, add it to output and make a recursive call
+        for (int i = 0; i < currentChars.length(); i++) {
+            printKeypadHelper(input / 10, currentChars.charAt(i) + output);
+        }
+    }
+}
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+print all the prime numbers between 2 and N (inclusive)
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+//print all the prime numbers between 2 and N (inclusive)
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        // Traverse through each number from 2 to n
+        for (int i = 2; i <= n; i++) {
+            boolean isPrime = true;
+            
+            // Check if the number i is prime
+            for (int j = 2; j <= Math.sqrt(i); j++) {
+                if (i % j == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            
+            // If i is prime, print it
+            if (isPrime) {
+                System.out.println(i);
+            }
+        }
+    }
+}
+
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+Simple interest
+
+***************************************************************************************************************************************************************
+***************************************************************************************************************************************************************
+//simple interest
+
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int testCases = sc.nextInt();
+        
+        for (int i = 0; i < testCases; i++) {
+            int p = sc.nextInt();
+            int r = sc.nextInt();
+            int t = sc.nextInt();
+            
+            double simpleInterest = calculateSimpleInterest(p, r, t);
+            System.out.printf("%.2f\n", simpleInterest);
+        }
+    }
+    
+    public static double calculateSimpleInterest(int p, int r, int t) {
+        long SI = (long) p * r * t;
+        double simpleInterest = (double) SI / 100;
+        return simpleInterest;
+    }
+}
